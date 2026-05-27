@@ -1,75 +1,55 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { employeedetails } from '../Service/EmployeeService';
 
 export default function ListEmployeeComponent() {
 
-    let tables=[
+    const [employees, setemployees] = useState([]);
 
-        {
-            "id":1,
-            "firstname":"jitendra",
-            "lastname":"Biswal",
-            "email":"biswaljitendra860@gmail.com"
-        },
-        {
-           "id":2,
-            "firstname":"Rakesh",
-            "lastname":"Mohanty",
-            "email":"mohantyrakesh760@gmail.com" 
-        },
-        
-        {
-             "id":3,
-            "firstname":"Sushree",
-            "lastname":"Muduli",
-            "email":"mudulisushree0@gmail.com"
-        }
+    useEffect(() => {
 
+        employeedetails()
+            .then((response) => {
+                setemployees(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
 
-    ]
+    }, []);
 
+    return (
+        <div className="container mt-4">
 
-  return (
-    <>
-    
+            <h3 className="text-center mb-4">Employee Table</h3>
 
-    <div className='container mt-5'>
-        <div className='fs-3 text-center'>Employee Table</div>
-        <table className='table'>
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>first-name</th>
-                    <th>last-name</th>
-                    <th>email</th>
-                </tr>
-            </thead>
+            <table className="table table-bordered table-striped table-hover">
 
-            <tbody>
+                <thead className="table-dark text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
 
-                {
-                    tables.map((emp)=>{
-                        return(
+                <tbody className="text-center">
+
+                    {
+                        employees.map((emp) => (
                             <tr key={emp.id}>
-
                                 <td>{emp.id}</td>
                                 <td>{emp.firstname}</td>
                                 <td>{emp.lastname}</td>
                                 <td>{emp.email}</td>
-
-
                             </tr>
-                        )
-                    })
-                }
+                        ))
+                    }
 
-            </tbody>
+                </tbody>
 
-        </table>
+            </table>
 
-    </div>
-    
-    
-    </>
-   
-  )
+        </div>
+    )
 }
