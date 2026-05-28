@@ -1,3 +1,15 @@
+.backend {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #212529; /* important */
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;
